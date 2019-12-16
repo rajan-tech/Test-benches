@@ -1,0 +1,36 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+
+--this is how entity for your test bench code has to be declared.
+entity testbench is
+end testbench;
+
+architecture behavior of testbench is
+--signal declarations.
+signal num1,num2 : std_logic_vector(3 downto 0) :=(others => '0');
+signal less,equal,greater :  std_logic:='0';
+
+begin
+--entity instantiation
+UUT : entity work.compare port map(num1,num2,less,equal,greater);
+
+
+--definition of simulation process
+tb : process
+begin
+num1<="0010";  --num1 =2
+num2<="1001"; --num2 =9
+wait for 2 ns;
+
+num1<="1001";  --num1 =9
+num2<="0010";   --num2 =2
+wait for 2 ns;
+
+num1<="1010";  --num1 =10
+num2<="1010";  --num2 =10
+--more input combinations can be given here.
+wait;
+end process tb;
+
+end;
